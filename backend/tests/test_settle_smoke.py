@@ -48,4 +48,5 @@ def test_settle_and_verify(client):
     assert report.status_code == 200, report.text
     rj = report.json()
     assert rj["consistent"] == 1
-    assert rj["ledger_net_cents"] == rj["balance_sum_cents"]
+    assert rj["ledger_net_cents"] == rj["total_cents"]
+    assert rj["posted_cents"] + rj["staging_cents"] == rj["total_cents"]

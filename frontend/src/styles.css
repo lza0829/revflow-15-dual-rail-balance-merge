@@ -374,6 +374,21 @@ tbody tr:hover { background: rgba(36, 87, 197, 0.04); }
   color: var(--danger);
 }
 
+/* —— 双余额分列：已对外 / 配平暂存 / 合计 —— */
+.amount-cell {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+.amount-cell.posted { color: var(--ink); font-weight: 600; }
+.amount-cell.staged {
+  color: var(--warn);
+  background: #fff7ed;
+  padding: 2px 6px;
+  border-left: 2px solid var(--warn);
+}
+.amount-cell.zero { color: #93a1b0; }
+.amount-cell.muted { color: var(--muted); }
+
 .btn {
   appearance: none;
   border: 1px solid var(--accent);

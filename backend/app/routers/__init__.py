@@ -1,11 +1,12 @@
 from fastapi import APIRouter
 
-from app.routers import accounts, dashboard, entries, quarantine, settle, verify
+from app.routers import accounts, dashboard, entries, merge, quarantine, settle, verify
 
 api = APIRouter(prefix="/api")
 api.include_router(dashboard.router)
 api.include_router(accounts.router)
 api.include_router(entries.router)
 api.include_router(settle.router)
+api.include_router(merge.router)
 api.include_router(quarantine.router)
 api.include_router(verify.router)

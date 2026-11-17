@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 
 from app.services import settle as svc
 
@@ -16,5 +16,5 @@ def get_run(run_id: int):
 
 
 @router.post("/settle-runs")
-def post_run():
-    return svc.run_settle()
+def post_run(simulate_failure: bool = Query(False, description="演练失败：整趟回滚")):
+    return svc.run_settle(simulate_failure=simulate_failure)

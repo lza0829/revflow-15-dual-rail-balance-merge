@@ -29,12 +29,18 @@ const maxCount = computed(() => {
     <template v-if="data">
       <section class="hero-balance">
         <div>
-          <p class="label">账户余额合计</p>
-          <p class="amount">¥ {{ yuan(data.余额合计分) }}</p>
+          <p class="label">已对外余额合计 · 对外口径</p>
+          <p class="amount">¥ {{ yuan(data.已对外余额合计分) }}</p>
           <p class="hint">
+            配平暂存 ¥{{ yuan(data.暂存余额合计分) }}（待合并 {{ data.待合并账户数 }} 户）
+            · 合计 ¥{{ yuan(data.余额合计分) }}
+            <br />
             待归并 {{ data.待归并 }} 笔
             <template v-if="data.最近归并">
               · 最近归并 #{{ data.最近归并.id }}（隔离 {{ data.最近归并.quarantine_count }}）
+            </template>
+            <template v-if="data.最近合并">
+              · 最近合并 #{{ data.最近合并.id }}（并入 ¥{{ yuan(data.最近合并.staged_total_cents) }}）
             </template>
           </p>
         </div>
@@ -57,15 +63,21 @@ const maxCount = computed(() => {
         </div>
       </section>
 
-      <h2 class="section-title">账户余额</h2>
+      <h2 class="section-title">账户余额（已对外 / 暂存分列）</h2>
       <div class="panel">
         <table>
-          <thead><tr><th>编码</th><th>名称</th><th>余额（元）</th></tr></thead>
+          <thead>
+            <tr>
+              <th>编码</th><th>名称</th><th>已对外（元）</th><th>暂存（元）</th><th>合计（元）</th>
+            </tr>
+          </thead>
           <tbody>
             <tr v-for="a in data.账户" :key="a.id">
               <td>{{ a.code }}</td>
               <td>{{ a.name }}</td>
-              <td>{{ yuan(a.balance_cents) }}</td>
+              <td>{{ yuan(a.posted_cents) }}</td>
+              <td>{{ yuan(a.staging_cents) }}</td>
+              <td>{{ yuan(a.total_cents) }}</td>
             </tr>
           </tbody>
         </table>
